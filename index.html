@@ -108,6 +108,40 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 	color:#4d3a3a;
     background-color:#f1ebdf
 }
+/*侧边栏关闭内容*/
+.bar-main {
+  position: relative;
+  width: 15px;
+  height: 100%;
+  z-index: 10;
+  visibility: visible;
+}
+
+#bar-day {
+  display: flex;
+  position: absolute;
+  border:dashed;
+  height:26px;
+  top: 38px;
+  left: 89%;
+  width: 26px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#bar-time {
+  display: flex;
+  position: absolute;
+  /*border:dashed;*/
+  height:156px;
+  top: 75px;
+  left: 90%;
+  width: 26px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 /* 自己的css */
 #phonebutton {
@@ -241,7 +275,6 @@ story-title{
 	animation: shudder linear 0.1s 0s infinite;
 	display: inline-block;
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript">//返回
-
 predisplay["Menu Return"] = function (taskName) {
    
     if (!tags().includes("noreturn")) {
@@ -249,6 +282,8 @@ predisplay["Menu Return"] = function (taskName) {
         State.variables.return = passage();
     }
 };
+
+
 
 //打开手机界面和切换页面内容
 window.openphone = function(page) {
@@ -372,6 +407,7 @@ Macro.add('rollup', {
 · 新增柯林纳足球场训练事件，有排期区别，有金丝丽的事件内容也做了妹宝是看书还是发呆的小差分。
 · 新增柯林纳排期上课后绑头发事件
 · 新增芝诺咖啡馆事件，有两个差分（芝诺推荐咖啡的差分可以去喝特殊咖啡）
+· 侧边栏收起部分可显示日期和时间段
 
 [[正式开始吧|中心广场]]
 
@@ -405,21 +441,21 @@ Macro.add('rollup', {
 现在是  $showyear  第$week周&lt;br&gt;
 
 &lt;&lt;if $day%7 == 1&gt;&gt;
-	&lt;&lt;set $dayOfWeek = &quot;星期一&quot;&gt;&gt;
+	&lt;&lt;set $dayOfWeek = &quot;一&quot;&gt;&gt;
 &lt;&lt;elseif $day%7 == 2&gt;&gt;
-	&lt;&lt;set $dayOfWeek = &quot;星期二&quot;&gt;&gt;
+	&lt;&lt;set $dayOfWeek = &quot;二&quot;&gt;&gt;
 &lt;&lt;elseif $day%7 == 3&gt;&gt;
-	&lt;&lt;set $dayOfWeek = &quot;星期三&quot;&gt;&gt;
+	&lt;&lt;set $dayOfWeek = &quot;三&quot;&gt;&gt;
 &lt;&lt;elseif $day%7 == 4&gt;&gt;
-	&lt;&lt;set $dayOfWeek = &quot;星期四&quot;&gt;&gt;
+	&lt;&lt;set $dayOfWeek = &quot;四&quot;&gt;&gt;
 &lt;&lt;elseif $day%7 == 5&gt;&gt;
-	&lt;&lt;set $dayOfWeek = &quot;星期五&quot;&gt;&gt;
+	&lt;&lt;set $dayOfWeek = &quot;五&quot;&gt;&gt;
 &lt;&lt;elseif $day%7 == 6&gt;&gt;
-	&lt;&lt;set $dayOfWeek = &quot;星期六&quot;&gt;&gt;
+	&lt;&lt;set $dayOfWeek = &quot;六&quot;&gt;&gt;
 &lt;&lt;elseif $day%7 == 0&gt;&gt;
-	&lt;&lt;set $dayOfWeek = &quot;星期日&quot;&gt;&gt;
+	&lt;&lt;set $dayOfWeek = &quot;日&quot;&gt;&gt;
 &lt;&lt;endif&gt;&gt;
-$dayOfWeek&lt;br&gt;
+星期$dayOfWeek&lt;br&gt;
 
 &lt;&lt;if $time == 1&gt;&gt;
 	&lt;&lt;set $showtime = &quot;上午 · 前&quot;&gt;&gt;
@@ -496,7 +532,20 @@ $dayOfWeek&lt;br&gt;
 &lt;&lt;stateWidget&gt;&gt;
 SAN值  &lt;meter min=&quot;0&quot; low=&quot;40&quot; high=&quot;80&quot; max=&quot;100&quot; @value=&quot;$san&quot;&gt;&lt;/meter&gt;&lt;br&gt;
 精力值  &lt;meter min=&quot;0&quot; low=&quot;40&quot; high=&quot;80&quot; max=&quot;100&quot; @value=&quot;$energy&quot;&gt;&lt;/meter&gt;&lt;br&gt;
-</tw-passagedata><tw-passagedata pid="8" name="社交" tags="noreturn" position="125,150" size="100,100">&lt;h2&gt;现在结识的角色&lt;/h2&gt;
+
+&lt;div id=&quot;bar-day&quot; class=&quot;bar-main&quot;&gt;
+      $dayOfWeek
+&lt;/div&gt;
+&lt;div id=&quot;bar-time&quot; class=&quot;bar-main&quot;&gt;
+      &lt;&lt;switch $time&gt;&gt;
+    	&lt;&lt;case 1&gt;&gt;🟡&lt;br&gt;⚪&lt;br&gt;⚪&lt;br&gt;⚪&lt;br&gt;⚪&lt;br&gt;⚪
+        &lt;&lt;case 2&gt;&gt;🟡&lt;br&gt;🟡&lt;br&gt;⚪&lt;br&gt;⚪&lt;br&gt;⚪&lt;br&gt;⚪
+        &lt;&lt;case 3&gt;&gt;🟡&lt;br&gt;🟡&lt;br&gt;🟡&lt;br&gt;⚪&lt;br&gt;⚪&lt;br&gt;⚪
+        &lt;&lt;case 4&gt;&gt;🟡&lt;br&gt;🟡&lt;br&gt;🟡&lt;br&gt;🟡&lt;br&gt;⚪&lt;br&gt;⚪
+        &lt;&lt;case 5&gt;&gt;🟡&lt;br&gt;🟡&lt;br&gt;🟡&lt;br&gt;🟡&lt;br&gt;🟡&lt;br&gt;⚪
+        &lt;&lt;case 6&gt;&gt;🟡&lt;br&gt;🟡&lt;br&gt;🟡&lt;br&gt;🟡&lt;br&gt;🟡&lt;br&gt;🟡
+    &lt;&lt;/switch&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="社交" tags="noreturn" position="125,150" size="100,100">&lt;h2&gt;现在结识的角色&lt;/h2&gt;
 &lt;h3&gt;姓名：路勒白&lt;/h3&gt;年级：&lt;&lt;if $year==1&gt;&gt;大二&lt;&lt;/if&gt;&gt;
 学院：
 路勒白的好感度：$Lullaby.favor
@@ -2483,7 +2532,7 @@ SAN值  &lt;meter min=&quot;0&quot; low=&quot;40&quot; high=&quot;80&quot; max=&
 他回过头，锐利的黑瞳阴冷地盯着挤在后门的你们，泄出一声轻蔑的笑。
 &lt;b&gt;&lt;font size=&quot;4&quot; @color=$Collina_col&gt;“几位，好看吗？”&lt;/font&gt;&lt;/b&gt;
 
-大事不妙，你们仓皇朝不同方向逃开。你向教室里瞥去最后一眼，看到&lt;font @color=$Kingsley_col&gt;金斯利&lt;/font&gt;捧着&lt;font @color=$Kinsley_col&gt;金丝丽&lt;/font&gt;扎好的头发仔细检查，始终未理睬过&lt;font @color=$Collina_col&gt;柯林纳哪怕一下。&lt;/font&gt;
+大事不妙，你们仓皇朝不同方向逃开。你向教室里瞥去最后一眼，看到&lt;font @color=$Kingsley_col&gt;金斯利&lt;/font&gt;捧着&lt;font @color=$Kinsley_col&gt;金丝丽&lt;/font&gt;扎好的头发仔细检查，始终未理睬过&lt;font @color=$Collina_col&gt;柯林纳&lt;/font&gt;哪怕一下。
 &lt;&lt;set $event18.continue+=1&gt;&gt;&lt;&lt;set $event18.trig+=1&gt;&gt;
 &lt;&lt;link &quot;该走了该走了&quot;&gt;&gt;&lt;&lt;set $time+=1&gt;&gt;&lt;&lt;goto &#39;教学楼&#39;&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;run $diary.push(&quot;- 在📙上课后 围观了&lt;font @color=$Kingsley_col&gt;金斯利&lt;/font&gt;给&lt;font @color=$Kinsley_col&gt;金丝丽&lt;/font&gt;绑头发，但是看热闹被&lt;font @color=$Collina_col&gt;柯林纳&lt;/font&gt;发现了。&lt;br&gt;&quot;)&gt;&gt;</tw-passagedata><tw-passagedata pid="144" name="event24" tags="NPC特殊事件 nobr" position="300,1600" size="100,100">&lt;&lt;switch $event24.detail&gt;&gt;
